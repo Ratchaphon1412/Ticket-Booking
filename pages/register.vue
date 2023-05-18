@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "base",
+  middleware: ["router-auth"],
 });
 </script>
 
