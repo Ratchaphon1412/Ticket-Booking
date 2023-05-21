@@ -6,17 +6,28 @@ export default defineNuxtConfig({
   ],
     modules: [
         '@pinia/nuxt',
+        '@vueuse/nuxt',
+        '@pinia-plugin-persistedstate/nuxt',
        
     ],
+    
     plugins: [
         '~/plugins/api.ts',
+      
     ],
-    postcss: {
+
+      postcss: {
         plugins: {
           tailwindcss: {},
           autoprefixer: {},
         },
       },
+      runtimeConfig: {
+        public:{
+           baseURL: process.env.BASE_URL || 'http://localhost:3000',
+        }
+       },
+      
    
 
 })
