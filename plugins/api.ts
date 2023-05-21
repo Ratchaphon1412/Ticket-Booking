@@ -1,23 +1,37 @@
 import axios from 'axios';
 
 
-const baseURL = 'http://localhost:8000/';
 
-const axiosInstance = axios.create({
-  baseURL,
-});
-
-axiosInstance.interceptors.request.use((config) => {
-    // const authStore = useAuthStore();
-    
-    // if (authStore.initializeAuthState()) {
-    //   config.headers.Authorization = `Bearer ${localStorage.getItem('authentication')}`;
-    // }
-    return config;
-  });
 
 
 export  default defineNuxtPlugin (async()=>{
+
+  const config = useRuntimeConfig();
+
+  const baseURL = config.public.baseURL;
+
+  const axiosInstance = axios.create({
+    baseURL,
+  });
+  
+  axiosInstance.interceptors.request.use((config) => {
+      const authStore = useAuthStore();
+      
+      if (authStore.getIsAuth){
+        config.headers.Authorization = `Bearer ${localStorage.getItem('authentication')}`;
+      }
+      return config;
+    });
+  
+  // axiosInstance.interceptors.response.use((response) => {
+  //   return response;
+  // },async (error) => {
+  
+  //   // if (error.request.status === 403  && error.request){
+  //   //    navigateTo('/');
+  //   // }
+  //   return Promise.reject(error);
+  // });
     return{
         provide:{
             axios:axiosInstance
