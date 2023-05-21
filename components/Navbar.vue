@@ -30,7 +30,7 @@ onMounted(() => {
 });
 const authStore = useAuthStore();
 
-const checkAuth = authStore.getIsAuth;
+const checkAuth = computed(() => authStore.getIsAuth);
 </script>
 
 <template>
