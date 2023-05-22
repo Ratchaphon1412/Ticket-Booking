@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, render } from "vue";
 import {
   initAccordions,
   initCarousels,
@@ -13,6 +13,8 @@ import {
   initTabs,
   initTooltips,
 } from "flowbite";
+const authStore = useAuthStore();
+const checkAuth = computedAsync(() => authStore.getIsAuth);
 
 // initialize components based on data attribute selectors
 onMounted(() => {
@@ -28,9 +30,6 @@ onMounted(() => {
   initTabs();
   initTooltips();
 });
-const authStore = useAuthStore();
-
-const checkAuth = computed(() => authStore.getIsAuth);
 </script>
 
 <template>
