@@ -18,7 +18,7 @@ export  default defineNuxtPlugin (async()=>{
       const authStore = useAuthStore();
       
       if (authStore.getIsAuth){
-        config.headers.Authorization = `Bearer ${localStorage.getItem('authentication')}`;
+        config.headers['x-access-token'] = authStore.getToken;
       }
       return config;
     });
