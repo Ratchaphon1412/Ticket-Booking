@@ -1,7 +1,5 @@
 import {defineStore} from 'pinia'
-import {ref,watch} from 'vue'
 
-// import { useLocalStorage } from '@vueuse/core'
 
 
 interface User{
@@ -51,6 +49,12 @@ export const useAuthenticationStore = defineStore('authenticationStore',{
             console.log(data);
 
 
+        },async logout(){
+            sessionStorage.removeItem('authenticationStore');
+            this.isAuth = false;
+            this.token = '';
+            this.username = '';
+            this.role = '';
         }
 
 
@@ -61,7 +65,14 @@ export const useAuthenticationStore = defineStore('authenticationStore',{
         },
         getRole():string{
             return this.role;
+        },
+        getUserName():string{
+            return this.username;
+        },
+        getToken():string{
+            return this.token;
         }
+        
     },
     persist: {
         storage: persistedState.sessionStorage,
