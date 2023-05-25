@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Swal from "sweetalert2";
 definePageMeta({
   layout: "base",
   // middleware: ["router-auth"],
@@ -14,8 +15,22 @@ let confirmpPassword: string;
 async function register(): Promise<void> {
   try {
     await authentication.signup(name, username, email, password);
+    await Swal.fire({
+      title: "Success !",
+
+      icon: "success",
+
+      timer: 3000,
+    });
   } catch (e) {
     console.log(e);
+    await Swal.fire({
+      title: "Register not Success!",
+
+      icon: "error",
+
+      timer: 3000,
+    });
   }
 }
 </script>
