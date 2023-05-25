@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Swal from "sweetalert2";
+
 definePageMeta({
   layout: "base",
   middleware: ["loginauth"],
@@ -24,6 +26,15 @@ const loginClick = async () => {
     }
   } catch (e) {
     console.log(e);
+    await Swal.fire({
+      title: "Error !",
+      text: "Unknow user or password",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    });
   }
 };
 
