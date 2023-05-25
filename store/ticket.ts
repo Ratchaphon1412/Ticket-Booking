@@ -3,8 +3,9 @@ import { defineStore } from 'pinia';
 
 interface Ticket{
   concert:Object,
-  details:Object
-
+  details:Object,
+  otherSelectSeat:Array<Object>,
+  userSelectSeat:Object
 
 }
 
@@ -13,8 +14,9 @@ export const useTicketConcertStore = defineStore({
   id: 'TicketConcertStore',
   state: ():Ticket => ({
     concert:{},
-    details:{}
-
+    details:{},
+    otherSelectSeat:[],
+    userSelectSeat:{}
    }),
   actions: {
     async getConCert(){
@@ -25,10 +27,31 @@ export const useTicketConcertStore = defineStore({
     },
     async getDetails(id:string){
       const axios= useNuxtApp().$axios;
-      console.log(id)
+     
       const {data} = await axios.get('/api/concert/'+id)
-      console.log(data)
+    
       this.details = data.data.concert;
+
+    },async getSeatZone(id:string,zone:string){
+      const axios= useNuxtApp().$axios;
+      
+      const {data} = await axios.get("api/concert/allOccupied",{params:{concertId:id,zone:zone}})
+      this.otherSelectSeat = data.occupiedSeats;
+      if(data.userOccupiedSeat ==null){
+        this.userSelectSeat=[];
+      }else{
+        this.userSelectSeat=data.userOccupiedSeat;
+      }
+      
+
+    },async saveSeat(concertId:string,zone:string,seatNumber:number) {
+      const axios= useNuxtApp().$axios;
+      const {data} = await axios.post("api/concert/saveOccupied",{
+        concertId:concertId,
+        zone:zone,
+        seatNumber:seatNumber
+      })
+      
 
     }
 
@@ -40,6 +63,12 @@ export const useTicketConcertStore = defineStore({
     },
     getDetailsData():Object{
       return this.details;
+    },
+    getOtherSelectSeat():Array<Object>{
+      return this.otherSelectSeat;
+    },
+    getUserSelectSeat():Object{
+      return this.userSelectSeat;
     }
   }
 });
