@@ -1,45 +1,79 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 interface Props {
   colum: number;
   row: number;
+  calback: Function;
 }
-
+const conCertStore = useTicketStore();
 const props = defineProps<Props>();
+const route = useRoute();
+const activeIndex = ref(0);
+const seatIndex = ref(-99);
 
-const seats = Array.from({ length: props.colum * props.row }, (_, i) => i);
+const otherSeat = computed<Array<Object>>(() => {
+  return conCertStore.getOtherSelectSeat;
+});
 
-const classObject = computed<string>(() => {
-  return "grid grid-cols-" + props.colum + " gap-2";
+const userSeat = computed<any>(() => {
+  return conCertStore.getUserSelectSeat;
 });
 
 function getSeat(seat: number): void {
-  console.log(seat);
+  let checkEnable;
+
+  if (checkSeat(seat, otherSeat.value)) {
+    checkEnable = false;
+  } else {
+    checkEnable = true;
+  }
+  seatIndex.value = seat;
+  props.calback(seat, checkEnable);
 }
+
+function checkSeat(seat: number, seatAll: Array<Object>) {
+  let check = false;
+  seatAll.map((item: any) => {
+    if (item.seatNumber == seat) {
+      check = true;
+    }
+  });
+  return check;
+}
+
+onMounted(() => {
+  conCertStore.getSeatZone(
+    route.params.id.toString(),
+    route.params.zone.toString()
+  );
+});
 </script>
 
 <template>
-  <div :class="classObject">
-    <div
-      v-for="seat in seats"
+  <ul class="grid grid-cols-8 justify-items-center">
+    <li
+      v-for="seat in props.colum * props.row"
       :key="seat"
-      class="flex flex-col justify-center items-center p-4"
+      class="rounded-lg"
+      :class="[seatIndex == seat ? 'bg-green-500' : '']"
     >
-      <font-awesome-icon
-        icon="fa-solid fa-couch"
-        class="text-black text-2xl font-bold"
-        v-on:click="getSeat(seat)"
-      />
-    </div>
-    <!-- <div
-      v-for="seat in seats"
-      :key="seat"
-      class="seat"
-      :class="{ 'seat--selected': seat === 5 }"
-    >
-      {{ seat }}
-    </div> -->
-  </div>
+      <span
+        :class="[
+          userSeat.seatNumber == seat
+            ? 'text-green-500'
+            : checkSeat(seat, otherSeat)
+            ? 'text-red-500'
+            : 'text-black',
+        ]"
+      >
+        <font-awesome-icon
+          icon="fa-solid fa-couch"
+          class="text-2xl p-3"
+          v-on:click="getSeat(seat)"
+        />
+      </span>
+    </li>
+  </ul>
 </template>
 
 <style></style>
