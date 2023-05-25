@@ -17,9 +17,9 @@ const authStore = useAuthStore();
 const checkAuth = computedAsync(() => authStore.getIsAuth);
 const userName = computedAsync(() => authStore.getUserName);
 
-function logout() {
+async function logout() {
   authStore.logout();
-  return navigateTo("/");
+  return await navigateTo("/");
 }
 
 // initialize components based on data attribute selectors
