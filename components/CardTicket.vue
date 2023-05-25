@@ -12,7 +12,7 @@ const props = defineProps<Props>();
 
 const { title, description, price, image, id } = props;
 
-const routeString = "/ticket/details/" + id;
+const routeString = `/ticket/details/${id}`;
 </script>
 
 <template>
