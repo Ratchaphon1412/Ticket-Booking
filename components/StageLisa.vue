@@ -6,9 +6,12 @@ interface Props {
 }
 const props = defineProps<Props>();
 const { callback } = props;
+const idMap = ref("");
 function getInfor(e: any) {
   // this.$emit("zone", e.target.id);
   callback(e.target.id);
+  idMap.value = e.target.id;
+  // e.target.style.stroke = "#00ff00";
 }
 </script>
 
@@ -39,6 +42,7 @@ function getInfor(e: any) {
           height="752.945"
           style="fill: #ff0001"
           v-on:click="getInfor"
+          stroke-width="20"
         />
         <text
           id="BL"
@@ -63,6 +67,7 @@ function getInfor(e: any) {
           height="752.945"
           style="fill: #ff0001"
           v-on:click="getInfor"
+          stroke-width="20"
         />
         <text
           id="BR"
@@ -75,6 +80,7 @@ function getInfor(e: any) {
             font-weight: 700;
             font-size: 153.028px;
           "
+          stroke-width="20"
         >
           BR
         </text>
@@ -90,6 +96,7 @@ function getInfor(e: any) {
           width="284.871"
           height="229.805"
           style="fill: #f40582"
+          stroke-width="20"
         />
         <text
           id="C1"
@@ -114,7 +121,7 @@ function getInfor(e: any) {
           width="284.871"
           height="229.805"
           style="fill: #f40582"
-          stroke="black"
+          stroke-width="20"
         />
 
         <text
@@ -140,6 +147,7 @@ function getInfor(e: any) {
           width="284.871"
           height="229.805"
           style="fill: #f40582"
+          stroke-width="20"
         />
         <text
           id="C3"
@@ -164,6 +172,7 @@ function getInfor(e: any) {
           width="284.871"
           height="229.805"
           style="fill: #f40582"
+          stroke-width="20"
         />
         <text
           id="C2"
@@ -182,10 +191,9 @@ function getInfor(e: any) {
       </g>
     </g>
     <g id="A">
-      <g id="AL">
+      <g id="AL" stroke-width="20" v-on:click="getInfor">
         <rect
           id="AL"
-          v-on:click="getInfor"
           x="1229.78"
           y="944.14"
           width="693.668"
@@ -194,7 +202,6 @@ function getInfor(e: any) {
         />
         <rect
           id="AL"
-          v-on:click="getInfor"
           x="1230.4"
           y="1448.57"
           width="501.099"
@@ -203,7 +210,6 @@ function getInfor(e: any) {
         />
         <text
           id="AL"
-          v-on:click="getInfor"
           x="1415.38px"
           y="1348.44px"
           style="
