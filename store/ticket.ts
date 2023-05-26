@@ -53,6 +53,27 @@ export const useTicketConcertStore = defineStore({
       })
       
 
+    },async  deleteConcertAdmin (concertID:string){
+      const axios= useNuxtApp().$axios;
+      const {data} = await axios.delete("/api/admin/concert/delete/"+concertID)
+      console.log(data)
+      return data;
+
+
+    },async editConcertAdmin(concertID:string,title:string,url:string,status:string){
+      const axios= useNuxtApp().$axios;
+      console.log(concertID,title,url,status)
+      const {data} = await axios.post("/api/admin/concert/edit",{id:concertID,name:title,image:url,status:status})
+      console.log(data)
+      return data;
+
+
+    },async findConcert(name:string){
+      const axois = useNuxtApp().$axios;
+      const {data} = await axois.get("/api/concert/findConcertByName",{params:{name:name}})
+      this.concert = data.data;
+
+
     }
 
 
