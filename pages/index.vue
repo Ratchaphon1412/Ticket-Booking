@@ -7,8 +7,8 @@ definePageMeta({
 });
 const { getConcertData }: any = storeToRefs(conCertStore);
 
-onMounted(async () => {
-  await conCertStore.getConCert();
+onMounted(() => {
+  conCertStore.getConCert();
 });
 </script>
 

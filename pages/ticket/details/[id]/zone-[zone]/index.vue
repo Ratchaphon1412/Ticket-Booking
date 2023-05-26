@@ -45,7 +45,7 @@ async function enableSubmit() {
 
         timer: 3000,
       });
-      navigateTo("/ticket");
+      navigateTo("/");
     }
   } catch (e) {
     await Swal.fire({
