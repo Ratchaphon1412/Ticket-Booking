@@ -1,14 +1,41 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
+import Swal from "sweetalert2";
+
 definePageMeta({
   layout: "base",
+  middleware: ["loginauth"],
 });
 const authentication = useAuthStore();
 
-const { id } = storeToRefs(authentication);
+let email: string;
+let password: string;
 
-const loginClick = () => {
-  authentication.login("email", "password");
+const loginClick = async () => {
+  try {
+    await authentication.login(email, password);
+    const checkAuth = computed(() => authentication.getIsAuth);
+    const checkRole = authentication.getRole;
+
+    if (checkAuth) {
+      if (checkRole == "ROLE_ADMIN") {
+        navigateTo("/admin");
+      } else if (checkRole == "ROLE_USER") {
+        navigateTo("/ticket");
+      }
+    } else {
+    }
+  } catch (e) {
+    console.log(e);
+    await Swal.fire({
+      title: "Error !",
+      text: "Unknow user or password",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    });
+  }
 };
 
 //
@@ -40,19 +67,22 @@ const loginClick = () => {
             >
               Sign in to your account
             </h1>
-            <form class="space-y-4 md:space-y-6" action="#">
+            <form
+              class="space-y-4 md:space-y-6"
+              v-on:submit.prevent="loginClick"
+            >
               <div>
                 <label
-                  for="email"
+                  for="username"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Your email</label
+                  >Your username</label
                 >
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
+                  type="username"
+                  name="username"
+                  v-model.trim="email"
                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
+                  placeholder="Username or Email"
                 />
               </div>
               <div>
@@ -64,7 +94,7 @@ const loginClick = () => {
                 <input
                   type="password"
                   name="password"
-                  id="password"
+                  v-model.trim="password"
                   placeholder="••••••••"
                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />

@@ -1,7 +1,38 @@
 <script setup lang="ts">
+import Swal from "sweetalert2";
 definePageMeta({
   layout: "base",
+  // middleware: ["router-auth"],
 });
+
+const authentication = useAuthStore();
+let name: string;
+let username: string;
+let email: string;
+let password: string;
+let confirmpPassword: string;
+
+async function register(): Promise<void> {
+  try {
+    await authentication.signup(name, username, email, password);
+    await Swal.fire({
+      title: "Success !",
+
+      icon: "success",
+
+      timer: 3000,
+    });
+  } catch (e) {
+    console.log(e);
+    await Swal.fire({
+      title: "Register not Success!",
+
+      icon: "error",
+
+      timer: 3000,
+    });
+  }
+}
 </script>
 
 <template>
@@ -29,7 +60,7 @@ definePageMeta({
           >
             Create and account
           </h1>
-          <form class="space-y-4 md:space-y-6" action="#">
+          <form class="space-y-4 md:space-y-6" v-on:submit.prevent="register">
             <div>
               <label
                 for="username"
@@ -39,9 +70,23 @@ definePageMeta({
               <input
                 type="username"
                 name="username"
-                id="username"
+                v-model.trim="username"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="username"
+              />
+            </div>
+            <div>
+              <label
+                for="name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Your Name</label
+              >
+              <input
+                type="name"
+                name="name"
+                v-model.trim="name"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="name"
               />
             </div>
             <div>
@@ -53,7 +98,7 @@ definePageMeta({
               <input
                 type="email"
                 name="email"
-                id="email"
+                v-model.trim="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="name@company.com"
               />
@@ -67,7 +112,7 @@ definePageMeta({
               <input
                 type="password"
                 name="password"
-                id="password"
+                v-model.trim="password"
                 placeholder="••••••••"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
@@ -81,7 +126,7 @@ definePageMeta({
               <input
                 type="confirm-password"
                 name="confirm-password"
-                id="confirm-password"
+                v-model.trim="confirmpPassword"
                 placeholder="••••••••"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
