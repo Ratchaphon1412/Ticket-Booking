@@ -2,6 +2,7 @@
 import Swal from "sweetalert2";
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
+import { get } from "http";
 
 // set the dropdown menu element
 
@@ -12,9 +13,11 @@ definePageMeta({
 const route = useRoute();
 const concertStore: any = useTicketStore();
 const { getDetailsData }: any = storeToRefs(concertStore);
-const title = ref("");
+
 const status = ref("Choose a Status");
 const image = computed<string>((): string => concertStore.getDetailsData.image);
+const name = computed<string>((): string => concertStore.getDetailsData.name);
+const title = ref(name);
 
 async function submitEdit() {
   try {

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
+import { onMounted } from "vue";
 interface Props {
   title?: string;
   description?: string;
@@ -9,15 +11,18 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
+const authStore = useAuthStore();
 const { title, description, price, image, id } = props;
+const { getIsAuth } = storeToRefs(authStore);
 
 const routeString = `/ticket/details/${id}`;
 </script>
 
 <template>
   <div class="w-full p-6 flex justify-center items-center justify-items-center">
-    <NuxtLink :to="status != 'Buy Ticket' ? '' : routeString">
+    <NuxtLink
+      :to="!getIsAuth ? '/login' : status != 'Buy Ticket' ? '' : routeString"
+    >
       <img class="h-96 w-72 object-cover object-center" :src="image" />
       <div class="pt-3 w-72 flex flex-col items-center justify-center mb-3">
         <p class="font-bold">{{ title }}</p>
