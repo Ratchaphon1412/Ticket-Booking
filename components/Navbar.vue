@@ -19,7 +19,7 @@ const userName = computedAsync(() => authStore.getUserName);
 
 async function logout() {
   await authStore.logout();
-  return navigateTo("/");
+  return await navigateTo("/");
 }
 
 // initialize components based on data attribute selectors

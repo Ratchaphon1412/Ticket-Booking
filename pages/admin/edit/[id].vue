@@ -10,7 +10,7 @@ definePageMeta({
   middleware: "authadmin",
 });
 const route = useRoute();
-const concertStore = useTicketStore();
+const concertStore: any = useTicketStore();
 const { getDetailsData }: any = storeToRefs(concertStore);
 const title = ref("");
 const status = ref("Choose a Status");
@@ -18,11 +18,24 @@ const image = computed<string>((): string => concertStore.getDetailsData.image);
 
 async function submitEdit() {
   try {
+    let text = "";
+    let choice = "";
+    if (title.value === "") {
+      text = getDetailsData.name;
+    } else {
+      text = title.value;
+    }
+
+    if (status.value === "Choose a Status") {
+      choice = getDetailsData.status;
+    } else {
+      choice = status.value;
+    }
     const response = await concertStore.editConcertAdmin(
       route.params.id.toString(),
-      title.value,
+      text,
       image.value,
-      status.value
+      choice
     );
     if (response.status === 200) {
       await Swal.fire({
@@ -80,14 +93,13 @@ onMounted(() => {
                   class="block font-bold mb-2 text-sm text-gray-900 dark:text-white"
                   >Title</label
                 >
-                <span class="text-xs font-bold text-gray-400 tracking-wider">{{
+                <span class="text-md font-bold text-gray-400 tracking-wider">{{
                   getDetailsData.name
                 }}</span>
                 <input
                   type="text"
                   v-model="title"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mt-3 mb-3 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  :placeholder="getDetailsData.name"
                 />
               </div>
 

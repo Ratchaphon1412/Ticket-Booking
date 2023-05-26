@@ -3,6 +3,7 @@ import { storeToRefs } from "pinia";
 const conCertStore = useTicketStore();
 definePageMeta({
   layout: "base",
+  middleware: "main",
 });
 const { getConcertData }: any = storeToRefs(conCertStore);
 
