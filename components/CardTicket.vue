@@ -16,28 +16,24 @@ const routeString = `/ticket/details/${id}`;
 </script>
 
 <template>
-  <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+  <div class="w-full p-6 flex justify-center items-center justify-items-center">
     <NuxtLink :to="status != 'Buy Ticket' ? '' : routeString">
-      <img
-        class="hover:grow hover:shadow-lg h-96 w-72 object-cover object-center"
-        :src="image"
-      />
-      <div class="pt-3 flex items-center justify-between mb-3">
+      <img class="h-96 w-72 object-cover object-center" :src="image" />
+      <div class="pt-3 w-72 flex flex-col items-center justify-center mb-3">
         <p class="font-bold">{{ title }}</p>
+        <button
+          v-if="status === 'Buy Ticket'"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full mt-2"
+        >
+          {{ status }}
+        </button>
+        <button
+          v-else
+          class="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded w-full mt-2"
+        >
+          {{ status }}
+        </button>
       </div>
-
-      <button
-        v-if="status === 'Buy Ticket'"
-        class="bg-blue-500 hover:bg-blue-600 text-gray-800 font-bold py-2 px-4 rounded w-full"
-      >
-        {{ status }}
-      </button>
-      <button
-        v-else
-        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded w-full"
-      >
-        {{ status }}
-      </button>
     </NuxtLink>
   </div>
 </template>

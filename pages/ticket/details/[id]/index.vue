@@ -29,7 +29,7 @@ onMounted(() => {
             <ul class="flex flex-wrap items-center mb-16">
               <li class="mr-6">
                 <NuxtLink
-                  to="/ticket"
+                  to="/"
                   class="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500"
                 >
                   <span>Ticket</span>
