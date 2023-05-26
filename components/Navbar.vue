@@ -18,8 +18,8 @@ const checkAuth = computedAsync(() => authStore.getIsAuth);
 const userName = computedAsync(() => authStore.getUserName);
 
 async function logout() {
-  authStore.logout();
-  return await navigateTo("/");
+  await authStore.logout();
+  return navigateTo("/");
 }
 
 // initialize components based on data attribute selectors
