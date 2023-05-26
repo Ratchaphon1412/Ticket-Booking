@@ -5,6 +5,7 @@ interface Props {
 const props = defineProps<Props>();
 const { callback } = props;
 const idMap = ref("");
+const color = "green";
 function getInfor(e: any) {
   // this.$emit("zone", e.target.id);
   callback(e.target.id);
@@ -31,7 +32,7 @@ function getInfor(e: any) {
     "
   >
     <g id="B">
-      <g id="BL">
+      <g id="BL" :stroke="idMap == 'BL' ? color : ''" stroke-width="20">
         <rect
           id="BL"
           x="1550.04"
@@ -55,7 +56,7 @@ function getInfor(e: any) {
           BL
         </text>
       </g>
-      <g id="BR">
+      <g id="BR" :stroke="idMap == 'BR' ? color : ''" stroke-width="20">
         <rect
           id="BR"
           x="2123.29"
@@ -82,7 +83,7 @@ function getInfor(e: any) {
       </g>
     </g>
     <g id="C">
-      <g id="C1">
+      <g id="C1" :stroke="idMap == 'C1' ? color : ''" stroke-width="20">
         <rect
           id="C1"
           x="1204.18"
@@ -106,7 +107,7 @@ function getInfor(e: any) {
           C1
         </text>
       </g>
-      <g id="C4">
+      <g id="C4" :stroke="idMap == 'C4' ? color : ''" stroke-width="20">
         <rect
           id="C4"
           x="2718.37"
@@ -130,7 +131,7 @@ function getInfor(e: any) {
           C4
         </text>
       </g>
-      <g id="C3">
+      <g id="C3" :stroke="idMap == 'C3' ? color : ''" stroke-width="20">
         <rect
           id="C3"
           x="2718.56"
@@ -154,7 +155,7 @@ function getInfor(e: any) {
           C3
         </text>
       </g>
-      <g id="C2">
+      <g id="C2" :stroke="idMap == 'C2' ? color : ''" stroke-width="20">
         <rect
           id="C2"
           x="1199.4"
@@ -181,7 +182,7 @@ function getInfor(e: any) {
       </g>
     </g>
     <g id="A">
-      <g id="AL">
+      <g id="AL" :stroke="idMap == 'AL' ? color : ''" stroke-width="20">
         <rect
           id="AL"
           x="1229.78"
@@ -214,7 +215,7 @@ function getInfor(e: any) {
           AL
         </text>
       </g>
-      <g id="AR">
+      <g id="AR" :stroke="idMap == 'AR' ? color : ''" stroke-width="20">
         <rect
           id="AR"
           x="2293.39"
@@ -267,7 +268,7 @@ function getInfor(e: any) {
       </text>
     </g>
     <g id="DL">
-      <g id="DL1">
+      <g id="DL1" :stroke="idMap == 'DL1' ? color : ''" stroke-width="5">
         <rect
           id="DL1"
           serif:id="DL1"
@@ -293,7 +294,7 @@ function getInfor(e: any) {
           DL1
         </text>
       </g>
-      <g id="DL2">
+      <g id="DL2" :stroke="idMap == 'DL2' ? color : ''" stroke-width="5">
         <rect
           id="DL2"
           serif:id="DL2"
@@ -319,7 +320,7 @@ function getInfor(e: any) {
           DL2
         </text>
       </g>
-      <g id="DL3">
+      <g id="DL3" :stroke="idMap == 'DL3' ? color : ''" stroke-width="5">
         <rect
           id="DL3"
           serif:id="DL3"
@@ -345,7 +346,7 @@ function getInfor(e: any) {
           DL3
         </text>
       </g>
-      <g id="DL4">
+      <g id="DL4" :stroke="idMap == 'DL4' ? color : ''" stroke-width="5">
         <rect
           id="DL4"
           serif:id="DL4"
@@ -371,7 +372,7 @@ function getInfor(e: any) {
           DL4
         </text>
       </g>
-      <g id="DL5">
+      <g id="DL5" :stroke="idMap == 'DL5' ? color : ''" stroke-width="5">
         <rect
           id="DL5"
           serif:id="DL5"
@@ -397,7 +398,7 @@ function getInfor(e: any) {
           DL5
         </text>
       </g>
-      <g id="DL6">
+      <g id="DL6" :stroke="idMap == 'DL6' ? color : ''" stroke-width="5">
         <rect
           id="DL6"
           serif:id="DL6"
@@ -423,7 +424,7 @@ function getInfor(e: any) {
           DL6
         </text>
       </g>
-      <g id="DL7">
+      <g id="DL7" :stroke="idMap == 'DL7' ? color : ''" stroke-width="5">
         <rect
           id="DL7"
           serif:id="DL7"
@@ -451,7 +452,7 @@ function getInfor(e: any) {
       </g>
     </g>
     <g id="DR">
-      <g id="DR1">
+      <g id="DR1" :stroke="idMap == 'DR1' ? color : ''" stroke-width="5">
         <rect
           id="DR1"
           serif:id="DR1"
@@ -477,7 +478,7 @@ function getInfor(e: any) {
           DR1
         </text>
       </g>
-      <g id="DR2">
+      <g id="DR2" :stroke="idMap == 'DR2' ? color : ''" stroke-width="5">
         <rect
           id="DR2"
           serif:id="DR2"
@@ -504,7 +505,7 @@ function getInfor(e: any) {
           DR2
         </text>
       </g>
-      <g id="DR3">
+      <g id="DR3" :stroke="idMap == 'DR3' ? color : ''" stroke-width="5">
         <rect
           id="DR3"
           serif:id="DR3"
@@ -531,7 +532,7 @@ function getInfor(e: any) {
           DR3
         </text>
       </g>
-      <g id="DR4">
+      <g id="DR4" :stroke="idMap == 'DR4' ? color : ''" stroke-width="5">
         <rect
           id="DR4"
           serif:id="DR4"
@@ -557,7 +558,7 @@ function getInfor(e: any) {
           DR4
         </text>
       </g>
-      <g id="DR5">
+      <g id="DR5" :stroke="idMap == 'DR5' ? color : ''" stroke-width="5">
         <rect
           id="DR5"
           serif:id="DR5"
@@ -583,7 +584,7 @@ function getInfor(e: any) {
           DR5
         </text>
       </g>
-      <g id="DR6">
+      <g id="DR6" :stroke="idMap == 'DR6' ? color : ''" stroke-width="5">
         <rect
           id="DR6"
           serif:id="DR6"
@@ -609,7 +610,7 @@ function getInfor(e: any) {
           DR6
         </text>
       </g>
-      <g id="DR7">
+      <g id="DR7" :stroke="idMap == 'DR7' ? color : ''" stroke-width="5">
         <rect
           id="DR7"
           serif:id="DR7"

@@ -7,6 +7,7 @@ interface Props {
 const props = defineProps<Props>();
 const { callback } = props;
 const idMap = ref("");
+const color = "green";
 function getInfor(e: any) {
   // this.$emit("zone", e.target.id);
   callback(e.target.id);
@@ -33,7 +34,7 @@ function getInfor(e: any) {
     "
   >
     <g id="B">
-      <g>
+      <g :stroke="idMap == 'BL' ? color : ''" stroke-width="20">
         <rect
           id="BL"
           x="1550.04"
@@ -58,7 +59,7 @@ function getInfor(e: any) {
           BL
         </text>
       </g>
-      <g id="BR">
+      <g id="BR" :stroke="idMap == 'BR' ? color : ''" stroke-width="20">
         <rect
           id="BR"
           x="2123.29"
@@ -87,7 +88,7 @@ function getInfor(e: any) {
       </g>
     </g>
     <g id="C">
-      <g id="C1">
+      <g id="C1" :stroke="idMap == 'C1' ? color : ''" stroke-width="20">
         <rect
           id="C1"
           v-on:click="getInfor"
@@ -112,7 +113,7 @@ function getInfor(e: any) {
           C1
         </text>
       </g>
-      <g id="C4">
+      <g id="C4" :stroke="idMap == 'C4' ? color : ''" stroke-width="20">
         <rect
           id="C4"
           v-on:click="getInfor"
@@ -138,7 +139,7 @@ function getInfor(e: any) {
           C4
         </text>
       </g>
-      <g id="C3">
+      <g id="C3" :stroke="idMap == 'C3' ? color : ''" stroke-width="20">
         <rect
           id="C3"
           v-on:click="getInfor"
@@ -163,7 +164,7 @@ function getInfor(e: any) {
           C3
         </text>
       </g>
-      <g id="C2">
+      <g id="C2" :stroke="idMap == 'C2' ? color : ''" stroke-width="20">
         <rect
           id="C2"
           v-on:click="getInfor"
@@ -191,7 +192,12 @@ function getInfor(e: any) {
       </g>
     </g>
     <g id="A">
-      <g id="AL" stroke-width="20" v-on:click="getInfor">
+      <g
+        id="AL"
+        :stroke="idMap == 'AL' ? color : ''"
+        stroke-width="20"
+        v-on:click="getInfor"
+      >
         <rect
           id="AL"
           x="1229.78"
@@ -221,7 +227,7 @@ function getInfor(e: any) {
           AL
         </text>
       </g>
-      <g id="AR">
+      <g id="AR" :stroke="idMap == 'AR' ? color : ''" stroke-width="20">
         <rect
           id="AR"
           v-on:click="getInfor"

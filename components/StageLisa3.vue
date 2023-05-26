@@ -5,6 +5,7 @@ interface Props {
 const props = defineProps<Props>();
 const { callback } = props;
 const idMap = ref("");
+const color = "green";
 function getInfor(e: any) {
   // this.$emit("zone", e.target.id);
   callback(e.target.id);
@@ -31,10 +32,10 @@ function getInfor(e: any) {
       stroke-miterlimit: 1.5;
     "
   >
-    <g id="B">
-      <g id="BL">
+    <g id="A">
+      <g id="AL" :stroke="idMap == 'AL' ? color : ''" stroke-width="20">
         <rect
-          id="BL"
+          id="AL"
           x="1437"
           y="1447.04"
           width="696.64"
@@ -44,7 +45,7 @@ function getInfor(e: any) {
         />
         <g transform="matrix(0.999299,0,0,1,-1.39459,0)">
           <text
-            id="BL"
+            id="AL"
             x="1671.79px"
             y="1949.32px"
             style="
@@ -58,9 +59,9 @@ function getInfor(e: any) {
           </text>
         </g>
       </g>
-      <g id="BR">
+      <g id="AR" :stroke="idMap == 'AR' ? color : ''" stroke-width="20">
         <rect
-          id="BR"
+          id="AR"
           x="2167.44"
           y="1454.95"
           width="696.64"
@@ -68,13 +69,9 @@ function getInfor(e: any) {
           style="fill: #ff0001"
           v-on:click="getInfor"
         />
-        <g
-          id="BR1"
-          serif:id="BR"
-          transform="matrix(0.999299,0,0,1,-0.892807,0)"
-        >
+        <g id="AR" serif:id="AR" transform="matrix(0.999299,0,0,1,-0.892807,0)">
           <text
-            id="BR"
+            id="AR"
             x="2387.8px"
             y="1955.69px"
             style="
@@ -113,4 +110,11 @@ function getInfor(e: any) {
   </svg>
 </template>
 
-<style></style>
+<style scoped>
+.noshow {
+  fill: none;
+  stroke: black;
+  stroke-width: 1;
+  pointer-events: visible;
+}
+</style>
