@@ -5,7 +5,9 @@ interface Ticket{
   concert:Object,
   details:Object,
   otherSelectSeat:Array<Object>,
-  userSelectSeat:Object
+  userSelectSeat:Array<Object>,
+  booking:Array<Object>,
+  seatBooked:Array<Object>
 
 }
 
@@ -16,7 +18,9 @@ export const useTicketConcertStore = defineStore({
     concert:{},
     details:{},
     otherSelectSeat:[],
-    userSelectSeat:{}
+    userSelectSeat:[],
+    booking:[],
+    seatBooked:[]
    }),
   actions: {
     async getConCert(){
@@ -36,6 +40,7 @@ export const useTicketConcertStore = defineStore({
       const axios= useNuxtApp().$axios;
       
       const {data} = await axios.get("api/concert/allOccupied",{params:{concertId:id,zone:zone}})
+      console.log(data)
       this.otherSelectSeat = data.occupiedSeats;
       if(data.userOccupiedSeat ==null){
         this.userSelectSeat=[];
@@ -44,7 +49,7 @@ export const useTicketConcertStore = defineStore({
       }
       
 
-    },async saveSeat(concertId:string,zone:string,seatNumber:number) {
+    },async saveSeat(concertId:string,zone:string,seatNumber:Array<Number>) {
       const axios= useNuxtApp().$axios;
       const {data} = await axios.post("api/concert/saveOccupied",{
         concertId:concertId,
@@ -74,6 +79,13 @@ export const useTicketConcertStore = defineStore({
       this.concert = data.data;
 
 
+    },
+    async userBooking(){
+      const axios= useNuxtApp().$axios;
+      const {data} = await axios.get('/api/occupied')
+      this.booking = data.concert;
+      this.seatBooked = data.occupied;
+    
     }
 
 
@@ -88,8 +100,14 @@ export const useTicketConcertStore = defineStore({
     getOtherSelectSeat():Array<Object>{
       return this.otherSelectSeat;
     },
-    getUserSelectSeat():Object{
+    getUserSelectSeat():Array<Object>{
       return this.userSelectSeat;
+    },
+    getBooking():Array<Object>{
+      return this.booking;
+    },
+    getSeatBooking():Array<Object>{
+      return this.seatBooked
     }
   }
 });
