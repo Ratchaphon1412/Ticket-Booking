@@ -8,13 +8,13 @@ definePageMeta({
 const route = useRoute();
 const concertStore = useTicketStore();
 const data: any = computed(() => concertStore.getDetailsData);
-const seat = ref(0);
+const seat: Ref<Array<Number>> = ref([]);
 const row = 8;
 const colum = 8;
 const enable = ref(false);
-const userSeat = computed<any>(() => {
-  return concertStore.getUserSelectSeat;
-});
+// const userSeat = computed<any>(() => {
+//   return concertStore.getUserSelectSeat;
+// });
 
 onMounted(() => {
   concertStore.getDetails(route.params.id.toString());
@@ -23,16 +23,10 @@ onMounted(() => {
     route.params.zone.toString()
   );
 });
-function checkSubmit() {
-  if (userSeat.value.length == 0 && enable.value == true) {
-    return true;
-  }
-  return false;
-}
 
 async function enableSubmit() {
   try {
-    if (checkSubmit()) {
+    if (enable.value == true) {
       await concertStore.saveSeat(
         route.params.id.toString(),
         route.params.zone.toString(),
@@ -59,7 +53,7 @@ async function enableSubmit() {
   }
 }
 
-function getSeat(seatSelect: number, enableToSelect: boolean): void {
+function getSeat(seatSelect: Array<Number>, enableToSelect: boolean): void {
   enable.value = enableToSelect;
   seat.value = seatSelect;
 }
@@ -127,20 +121,11 @@ function getSeat(seatSelect: number, enableToSelect: boolean): void {
             <span class="mt-6 mb-4 text-lg font-medium">
               Zone : {{ $route.params.zone }}
             </span>
-            <h3
-              v-if="userSeat.length != 0"
-              class="mt-6 mb-4 text-base font-medium"
-            >
-              Seat : Can't Select because you Selected
-            </h3>
-            <h3 v-else-if="seat == 0" class="mt-6 mb-4 text-base font-medium">
+            <h3 v-if="seat.length == 0" class="mt-6 mb-4 text-base font-medium">
               Seat : No Select Seat
             </h3>
-            <h3 v-else-if="enable" class="mt-6 mb-4 text-base font-medium">
-              Seat : {{ seat }}
-            </h3>
             <h3 v-else class="mt-6 mb-4 text-base font-medium">
-              Seat : Can't Select because other user selected
+              Seat : {{ seat }}
             </h3>
           </div>
 
@@ -150,7 +135,7 @@ function getSeat(seatSelect: number, enableToSelect: boolean): void {
                 v-on:click="enableSubmit"
                 class="block py-4 px-2 leading-8 font-heading font-medium tracking-tighter text-xl text-center focus:ring-2 focus:ring-opacity-50 rounded-xl"
                 :class="[
-                  checkSubmit()
+                  enable == true
                     ? 'text-white bg-blue-500 focus:ring-blue-500 hover:bg-blue-600'
                     : 'text-white bg-gray-500 focus:ring-gray-500 hover:bg-gray-600',
                 ]"
