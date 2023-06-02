@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
+import { storeToRefs } from "pinia";
 interface Props {
   colum: number;
   row: number;
@@ -8,27 +9,23 @@ interface Props {
 const conCertStore = useTicketStore();
 const props = defineProps<Props>();
 const route = useRoute();
-const activeIndex = ref(0);
-const seatIndex = ref(-99);
-
-const otherSeat = computed<Array<Object>>(() => {
-  return conCertStore.getOtherSelectSeat;
-});
-
-const userSeat = computed<any>(() => {
-  return conCertStore.getUserSelectSeat;
-});
+const seatIndex: Ref<Array<Number>> = ref([]);
+const { getUserSelectSeat }: any = storeToRefs(conCertStore);
+const { getOtherSelectSeat }: any = storeToRefs(conCertStore);
 
 function getSeat(seat: number): void {
-  let checkEnable;
+  let checkEnable = true;
 
-  if (checkSeat(seat, otherSeat.value)) {
+  if (checkSeat(seat, getOtherSelectSeat.value)) {
     checkEnable = false;
   } else {
     checkEnable = true;
+    if (!seatIndex.value.includes(seat)) {
+      seatIndex.value.push(seat);
+    }
   }
-  seatIndex.value = seat;
-  props.calback(seat, checkEnable);
+
+  props.calback(seatIndex.value, checkEnable);
 }
 
 function checkSeat(seat: number, seatAll: Array<Object>) {
@@ -55,13 +52,13 @@ onMounted(() => {
       v-for="seat in props.colum * props.row"
       :key="seat"
       class="rounded-lg"
-      :class="[seatIndex == seat ? 'bg-green-500' : '']"
+      :class="[seatIndex.includes(seat) ? 'bg-green-500' : '']"
     >
       <span
         :class="[
-          userSeat.seatNumber == seat
+          checkSeat(seat, getUserSelectSeat)
             ? 'text-green-500'
-            : checkSeat(seat, otherSeat)
+            : checkSeat(seat, getOtherSelectSeat)
             ? 'text-red-500'
             : 'text-black',
         ]"
