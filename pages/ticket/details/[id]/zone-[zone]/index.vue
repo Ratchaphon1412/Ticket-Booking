@@ -52,6 +52,9 @@ async function enableSubmit() {
     console.log(e);
   }
 }
+function cancel() {
+  seat.value.length = 0;
+}
 
 function getSeat(seatSelect: Array<Number>, enableToSelect: boolean): void {
   enable.value = enableToSelect;
@@ -130,7 +133,7 @@ function getSeat(seatSelect: Array<Number>, enableToSelect: boolean): void {
           </div>
 
           <div class="flex flex-wrap -mx-2 mb-12">
-            <div class="w-full md:w-3/4 px-2 mb-2 md:mb-0">
+            <div class="w-full md:w-3/4 px-2 mb-2 md:mb-0 flex gap-4">
               <Button
                 v-on:click="enableSubmit"
                 class="block py-4 px-2 leading-8 font-heading font-medium tracking-tighter text-xl text-center focus:ring-2 focus:ring-opacity-50 rounded-xl"
@@ -141,6 +144,16 @@ function getSeat(seatSelect: Array<Number>, enableToSelect: boolean): void {
                 ]"
                 >Confirm</Button
               >
+              <Button
+                v-on:click="cancel"
+                class="block py-4 px-2 leading-8 font-heading font-medium tracking-tighter text-xl text-center focus:ring-2 focus:ring-opacity-50 rounded-xl"
+                :class="[
+                  seat.length !== 0
+                    ? 'text-white bg-blue-500 focus:ring-blue-500 hover:bg-blue-600'
+                    : 'text-white bg-gray-500 focus:ring-gray-500 hover:bg-gray-600',
+                ]"
+                >Cancel
+              </Button>
             </div>
           </div>
         </div>
