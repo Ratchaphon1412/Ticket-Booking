@@ -2,7 +2,6 @@
 import Swal from "sweetalert2";
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
-import { get } from "http";
 
 // set the dropdown menu element
 
